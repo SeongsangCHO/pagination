@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from "react";
+import debounce from "lodash.debounce";
 
 interface IProps {
   data: Array<any>;
-  itemPerPage: number;
-  delay: number;
+  delay?: number;
+  resize: boolean;
+
   responsiveOption?: {
     breakPoint: number;
     delay: number;
@@ -12,9 +14,9 @@ interface IProps {
   };
 }
 const usePagination = ({
-  itemPerPage,
   delay = 0,
   data = [],
+  resize = false,
   responsiveOption = {
     breakPoint: 768,
     delay: 200,
@@ -22,16 +24,41 @@ const usePagination = ({
     breakPointOverViewCount: 10,
   },
 }: IProps) => {
-  const [totalDataCount, setTotalDataCount] = useState(data.length);
   const [itemCountPerPage, setItemCountPerPage] = useState(0);
   const [currPageNum, setCurrPageNum] = useState<number>(1);
   const [itemOffset, setItemOffset] = useState(0);
   const [totalPageCount, setTotalPageCount] = useState(0);
   const [displayData, setDisplayData] = useState<Array<any>>([]);
 
-  const timeOutId = useRef<number>(-1);
+  useEffect(() => {
+    if (data.length !== 0 && itemCountPerPage !== 0) {
+      setTotalPageCount(Math.ceil(data.length / itemCountPerPage));
+    } else setTotalPageCount(1);
+  }, [data, itemCountPerPage]);
 
-  const handleResize = () => {
+  useEffect(() => {
+    const endOffset = itemOffset + itemCountPerPage;
+    setDisplayData(data.slice(itemOffset, endOffset));
+  }, [itemOffset, itemCountPerPage, data]);
+
+  useEffect(() => {
+    if (currPageNum > totalPageCount && currPageNum !== 1) {
+      setCurrPageNum(totalPageCount);
+      setItemOffset((totalPageCount - 1) * itemCountPerPage);
+    }
+  }, [itemCountPerPage, totalPageCount, currPageNum]);
+
+  const debounceSetItemOffset = debounce((newOffset: number) => {
+    setItemOffset(newOffset);
+  }, delay);
+
+  const handlePageClick = (page: number) => {
+    const newOffset = (page - 1) * itemCountPerPage;
+    setCurrPageNum(page);
+    debounceSetItemOffset(newOffset);
+  };
+
+  const handleResize = debounce(() => {
     if (window !== undefined) {
       if (window.innerWidth > responsiveOption.breakPoint) {
         setItemCountPerPage(responsiveOption.breakPointOverViewCount);
@@ -50,32 +77,22 @@ const usePagination = ({
         }
       }
     }
-  };
+  }, 200);
 
   useEffect(() => {
-    if (totalDataCount !== 0 && itemPerPage !== 0) {
-      setTotalPageCount(Math.ceil(totalDataCount / itemPerPage));
-    } else setTotalPageCount(0);
-  }, [totalDataCount]);
-
-  const debounce = ({ cb, delay }: { cb: any; delay: number }) => {
-    if (timeOutId.current !== -1) {
-      clearTimeout(timeOutId.current);
+    if (resize) {
+      if (window.innerWidth > responsiveOption.breakPoint) {
+        setItemCountPerPage(responsiveOption.breakPointOverViewCount);
+      }
+      if (window.innerWidth < responsiveOption.breakPoint) {
+        setItemCountPerPage(responsiveOption.breakPointUnderViewCount);
+      }
+      window.addEventListener("resize", handleResize as any);
     }
-    timeOutId.current = setTimeout(cb, delay) as unknown as number;
-  };
-
-  const handlePageClick = (page: number) => {
-    const newOffset = page - 1;
-    setCurrPageNum(page);
-    debounce({ cb: setItemOffset(newOffset), delay });
-  };
-
-  useEffect(() => {
-    const endOffset = itemOffset + itemCountPerPage;
-    setDisplayData(data.slice(itemOffset, endOffset));
-  }, [itemOffset, itemCountPerPage, data]);
-
+    return () => {
+      window.removeEventListener("resize", handleResize as any);
+    };
+  }, [handleResize, responsiveOption, resize]);
   return {
     handlePageClick,
     totalPageCount,

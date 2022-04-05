@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 interface IProps {
-  //전체 페이지 갯수
   totalPageCount: number;
-  //현재 페이지
   currPageNum: number;
   handlePageClick: any;
-  //
+  data: Array<any>;
 }
 
 const DISPLAY_PAGE_BLOCK_COUNT = 5;
@@ -16,6 +14,7 @@ const Pagination = ({
   totalPageCount,
   currPageNum,
   handlePageClick,
+  data = [],
 }: IProps) => {
   const [paginationButtonList, setPaginationButtonList] = useState([]);
   const displayPageBlock = Array(totalPageCount)
@@ -49,6 +48,9 @@ const Pagination = ({
     const { page } = (e.target as HTMLButtonElement).dataset;
     handlePageClick(Number(page));
   };
+  if (data.length === 0) {
+    return <></>;
+  }
   return (
     <List>
       <li>
