@@ -1,11 +1,25 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
+import { ReactComponent as LeftArrow } from "../assets/LeftArrow.svg";
+import { ReactComponent as LeftArrows } from "../assets/LeftArrows.svg";
+import { ReactComponent as RightArrows } from "../assets/RightArrows.svg";
+import { ReactComponent as RightArrow } from "../assets/RightArrow.svg";
+
+interface IStyle {
+  buttonBgColor?: string;
+  numberColor?: string;
+  customLeftArrowIcon: React.ReactElement;
+  customLeftArrowsIcon: React.ReactElement;
+  customRightArrowIcon: React.ReactElement;
+  customRightArrowsIcon: React.ReactElement;
+}
 
 interface IProps {
   totalPageCount: number;
   currPageNum: number;
   handlePageClick: any;
   data: Array<any>;
+  customStyle?: IStyle;
 }
 
 const DISPLAY_PAGE_BLOCK_COUNT = 5;
@@ -15,6 +29,14 @@ const Pagination = ({
   currPageNum,
   handlePageClick,
   data = [],
+  customStyle = {
+    buttonBgColor: "#1590fe",
+    numberColor: "white",
+    customLeftArrowIcon: <LeftArrow />,
+    customLeftArrowsIcon: <LeftArrows />,
+    customRightArrowIcon: <RightArrow />,
+    customRightArrowsIcon: <RightArrows />,
+  },
 }: IProps) => {
   const [paginationButtonList, setPaginationButtonList] = useState([]);
   const displayPageBlock = Array(totalPageCount)
@@ -54,42 +76,45 @@ const Pagination = ({
   return (
     <List>
       <li>
-        <button disabled={currPageNum === 1} onClick={() => handlePageClick(1)}>
-          {"<<"}
-        </button>
-        <button
+        <PageItem
+          disabled={currPageNum === 1}
+          onClick={() => handlePageClick(1)}
+        >
+          {customStyle.customLeftArrowsIcon}
+        </PageItem>
+        <PageItem
           disabled={currPageNum === 1}
           onClick={() => handlePageClick(currPageNum - 1)}
         >
-          {"<"}
-        </button>
+          {customStyle.customLeftArrowIcon}
+        </PageItem>
       </li>
       <li>
         {paginationButtonList.map((page: number, idx: number) => (
-          <button
+          <PageItem
             key={idx}
             onClick={(e: any) => handleClickPage(e)}
             data-page={page}
-            // disabled={page === currPageNum}
-            // focused={page === currPageNum}
+            focused={page === currPageNum}
+            customStyle={customStyle}
           >
             {page}
-          </button>
+          </PageItem>
         ))}
       </li>
       <li>
-        <button
+        <PageItem
           disabled={currPageNum === totalPageCount}
           onClick={() => handlePageClick(currPageNum + 1)}
         >
-          {">"}
-        </button>
-        <button
+          {customStyle.customRightArrowIcon}
+        </PageItem>
+        <PageItem
           disabled={currPageNum === totalPageCount}
           onClick={() => handlePageClick(totalPageCount)}
         >
-          {">>"}
-        </button>
+          {customStyle.customRightArrowsIcon}
+        </PageItem>
       </li>
     </List>
   );
@@ -103,15 +128,50 @@ const List = styled.ul`
   align-items: center;
   max-width: 50%;
   margin: 0 auto;
-  /* margin-bottom: 10px; */
   white-space: nowrap;
-  gap: 5px;
-  & li:nth-child(2) button {
-    /* margin-left: 10px; */
+  list-style: none;
+  & li {
+    display: flex;
+    align-items: center;
   }
 `;
 
-const PageItem = styled.button`
+const PageItem = styled.button<{ focused?: boolean; customStyle?: IStyle }>`
   border-radius: 8px;
-  /* background-color: ${({ theme }) => theme.colors.blue0}; */
+  padding: 4px 6px;
+  border: none;
+  width: 28px;
+  height: 28px;
+  color: black;
+  background-color: white;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+  user-select: none;
+  & path {
+    fill: black;
+  }
+
+  &:hover {
+    background-color: ${(props) => props.customStyle?.buttonBgColor};
+    opacity: 0.7;
+    color: ${(props) => props.customStyle?.numberColor};
+  }
+
+  ${({ focused, customStyle }) =>
+    focused &&
+    css`
+      background-color: ${customStyle?.buttonBgColor};
+      color: ${customStyle?.numberColor};
+      cursor: not-allowed;
+    `}
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+    background-color: rgba(0, 0, 0, 0.25);
+  }
 `;
