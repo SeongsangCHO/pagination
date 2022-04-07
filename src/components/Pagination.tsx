@@ -8,13 +8,14 @@ import { ReactComponent as RightArrow } from "../assets/RightArrow.svg";
 interface IStyle {
   buttonBgColor?: string;
   numberColor?: string;
-  customLeftArrowIcon: React.ReactElement;
-  customLeftArrowsIcon: React.ReactElement;
-  customRightArrowIcon: React.ReactElement;
-  customRightArrowsIcon: React.ReactElement;
+  customLeftArrowIcon?: React.ReactElement;
+  customLeftArrowsIcon?: React.ReactElement;
+  customRightArrowIcon?: React.ReactElement;
+  customRightArrowsIcon?: React.ReactElement;
+  maxWidth?: string;
 }
 
-interface IProps {
+interface IProps extends IStyle {
   totalPageCount: number;
   currPageNum: number;
   handlePageClick: any;
@@ -37,6 +38,7 @@ const Pagination = ({
     customRightArrowIcon: <RightArrow />,
     customRightArrowsIcon: <RightArrows />,
   },
+  maxWidth,
 }: IProps) => {
   const [paginationButtonList, setPaginationButtonList] = useState([]);
   const displayPageBlock = Array(totalPageCount)
@@ -74,7 +76,7 @@ const Pagination = ({
     return <></>;
   }
   return (
-    <List>
+    <List {...{ maxWidth }}>
       <li>
         <PageItem
           disabled={currPageNum === 1}
@@ -122,11 +124,11 @@ const Pagination = ({
 
 export default Pagination;
 
-const List = styled.ul`
+const List = styled.ul<IStyle>`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  max-width: 50%;
+  max-width: ${(props) => props.maxWidth};
   margin: 0 auto;
   white-space: nowrap;
   list-style: none;
