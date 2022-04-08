@@ -13,6 +13,8 @@ interface IStyle {
   customRightArrowIcon?: React.ReactElement;
   customRightArrowsIcon?: React.ReactElement;
   maxWidth?: string;
+  margin?: string;
+  fontSize?: string;
 }
 
 interface IProps extends IStyle {
@@ -39,6 +41,8 @@ const Pagination = ({
     customRightArrowsIcon: <RightArrows />,
   },
   maxWidth,
+  margin,
+  fontSize,
 }: IProps) => {
   const [paginationButtonList, setPaginationButtonList] = useState([]);
   const displayPageBlock = Array(totalPageCount)
@@ -76,7 +80,7 @@ const Pagination = ({
     return <></>;
   }
   return (
-    <List {...{ maxWidth }}>
+    <List {...{ maxWidth, margin }}>
       <li>
         <PageItem
           disabled={currPageNum === 1}
@@ -128,7 +132,9 @@ const List = styled.ul<IStyle>`
   display: flex;
   justify-content: space-around;
   align-items: center;
+  margin: ${(props) => props.margin};
   max-width: ${(props) => props.maxWidth};
+  font-size: ${(props) => props.fontSize};
   margin: 0 auto;
   white-space: nowrap;
   list-style: none;
