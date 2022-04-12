@@ -1,5 +1,5 @@
 {
-  "name": "@nong/react-responsive-pagination",
+  "name": "react-responsive-pagination-component",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "version": "0.0.1",

@@ -1,46 +1,120 @@
-# Getting Started with Create React App
+# react-responsive-pagination-component
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+[eg](https://user-images.githubusercontent.com/55486644/162970783-eb152da4-2076-4cc3-9100-811d223b3133.mov)
 
-In the project directory, you can run:
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Usage
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+```tsx
+import React, { useState } from "react";
+import { Pagination, usePagination } from "react-responsive-pagination-hook";
 
-### `npm test`
+function App() {
+  const DATA = Array(20)
+    .fill({})
+    .map((_, index) => ({
+      id: index,
+      name: `SECHO-${index}`,
+    }));
+  const [data, setData] = useState([...DATA]);
+  const { handlePageClick, totalPageCount, currPageNum, displayData } =
+    usePagination({
+      data: data,
+      delay: 0,
+      resize: true,
+      responsiveOption: {
+        breakPoint: 768,
+        delay: 200,
+        breakPointUnderViewCount: 6,
+        breakPointOverViewCount: 10,
+      },
+    });
+  const handleDelete = (e: any) => {
+    const { id } = e.target.dataset;
+    setData([...data.filter((item) => item.id != id)]);
+  };
+  return (
+    <div className="App">
+      <div>
+        {displayData.map((item: any, _: number) => (
+          <div key={item.id}>
+            <span>{item.name}</span>
+            <button onClick={handleDelete} data-id={item.id}>
+              X
+            </button>
+          </div>
+        ))}
+      </div>
+      <Pagination {...{ totalPageCount, currPageNum, handlePageClick, data }} />
+    </div>
+  );
+}
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Hook Props
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+| Parameter        | Description               | Type       | Default |
+| ---------------- | ------------------------- | ---------- | ------- |
+| data             | Total data                | array<any> | []      |
+| resize           | set resize option         | boolean    | False   |
+| delay            | Debounce delay for resize | Number     | 0       |
+| responsiveOption | Object                    | array<any> | []      |
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### responsiveOption Props
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
+
+| Parameter                | Description                                                | Type       | Default |
+| ------------------------ | ---------------------------------------------------------- | ---------- | ------- |
+| breakPoint               | Responsive break point width px                            | array<any> | []      |
+| breakPointUnderViewCount | Number of items displayed when less than the breakpoint    | Number     | 6       |
+| breakPointOverViewCount  | Number of items displayed when greater than the breakpoint | Number     | 10      |
+
+
+
+
+
+
+
+## Pagination Component Props
+
+---
+
+| Parameter       | Description          | Type                 | Default |
+| --------------- | -------------------- | -------------------- | ------- |
+| totalPageCount  | total page count     | number               | -       |
+| currPageNum     | current page number  | number               | -       |
+| handlePageClick | Page change callback | Function(pageNumber) |         |
+| data            | Total data           | array<any>           | []      |
+| customStyle     | Custom style props   | Object               |         |
+
+
+
+#### Custom Style Props
+
+---
+
+| Parameter             | Description                    | Type                         | Default    |
+| --------------------- | ------------------------------ | ---------------------------- | ---------- |
+| buttonBgColor         | Pagination Background color    | String                       | "\#1590fe" |
+| numberColor           | number color                   | String                       | "white"    |
+| customLeftArrowIcon   | Arrow Icon                     | React.ReactElement \| string | "<"        |
+| customLeftArrowsIcon  | Arrow Icon                     | React.ReactElement \| string | "<<"       |
+| customRightArrowIcon  | Arrow Icon                     | React.ReactElement \| string |            |
+| customRightArrowsIcon | Arrow Icon                     | React.ReactElement \| string | ">>"       |
+| maxWidth              | pagination container max width | String                       | -          |
+| margin                | pagination container margin    | String                       | -          |
+| fontSize              | Font size                      | String                       | -          |
