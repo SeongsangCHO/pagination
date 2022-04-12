@@ -2,9 +2,12 @@
 
 ---
 
+Provides hooks and components that change the number of pages responsively according to the viewport size.
+
 ![example](https://user-images.githubusercontent.com/55486644/162971856-15326070-22f0-4a7b-91c6-890c36f30881.gif)
 
 
+<br/>
 
 
 ## Usage
