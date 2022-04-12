@@ -1,8 +1,8 @@
 {
-  "name": "react-responsive-pagination",
-  "module": "dist/index.js",
-  "main": "dist/index.js",
-  "version": "0.0.1",
+  "name": "react-responsive-pagination-hook",
+  "module": "dist/index.ts",
+  "main": "dist/index.ts",
+  "version": "0.0.3",
   "description": "Responsive Pagination for react",
   "keywords": [
     "pagination",
@@ -15,15 +15,12 @@
     "email": "liasqui31@gmail.com"
   },
   "author": {
-    "name": "Seongsang Cho",
+    "name": "liasqui",
     "email": "liasqui31@gmail.com",
     "url": "https://watermelonlike.tistory.com"
   },
   "license": "MIT",
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.3",
-    "@testing-library/react": "^12.1.4",
-    "@testing-library/user-event": "^13.5.0",
     "@types/jest": "^27.4.1",
     "@types/lodash.debounce": "^4.0.6",
     "@types/node": "^16.11.26",
@@ -40,11 +37,12 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "publish:npm": "rm -rf dist && mkdir dist && babel src/lib -d dist --copy-files"
+    "publish:npm": "rm -rf dist && mkdir dist && babel src/lib -d dist --copy-files",
+    "build":"rm -rf dist && mkdir dist && tsc"
   },
+  "files":["dist"],
   "babel": {
     "presets": [
       "@babel/preset-react"
@@ -69,6 +67,9 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.3",
+    "@testing-library/react": "^12.1.4",
+    "@testing-library/user-event": "^13.5.0",
     "@babel/cli": "^7.17.6",
     "@babel/preset-react": "^7.16.7"
   }
