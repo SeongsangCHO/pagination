@@ -2,7 +2,7 @@
   "name": "react-responsive-pagination-hook",
   "module": "dist/index.ts",
   "main": "dist/index.ts",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Responsive Pagination for react",
   "keywords": [
     "pagination",
