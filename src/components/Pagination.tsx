@@ -80,7 +80,7 @@ const Pagination = ({
     return <></>;
   }
   return (
-    <List {...{ maxWidth, margin }}>
+    <List {...{ maxWidth, margin, fontSize }}>
       <li>
         <PageItem
           disabled={currPageNum === 1}
