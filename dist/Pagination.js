@@ -46,10 +46,10 @@ var Pagination = function (_a) {
     var totalPageCount = _a.totalPageCount, currPageNum = _a.currPageNum, handlePageClick = _a.handlePageClick, _b = _a.data, data = _b === void 0 ? [] : _b, _c = _a.customStyle, customStyle = _c === void 0 ? {
         buttonBgColor: "#1590fe",
         numberColor: "white",
-        customLeftArrowIcon: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, {}),
-        customLeftArrowsIcon: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, {}),
-        customRightArrowIcon: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, {}),
-        customRightArrowsIcon: (0, jsx_runtime_1.jsx)(jsx_runtime_1.Fragment, {}),
+        customLeftArrowIcon: "<",
+        customLeftArrowsIcon: "<<",
+        customRightArrowIcon: ">",
+        customRightArrowsIcon: ">>",
     } : _c, maxWidth = _a.maxWidth, margin = _a.margin, fontSize = _a.fontSize;
     var _d = (0, react_1.useState)([]), paginationButtonList = _d[0], setPaginationButtonList = _d[1];
     var displayPageBlock = Array(totalPageCount)

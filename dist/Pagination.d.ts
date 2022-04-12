@@ -2,10 +2,10 @@ import React from "react";
 interface IStyle {
     buttonBgColor?: string;
     numberColor?: string;
-    customLeftArrowIcon?: React.ReactElement;
-    customLeftArrowsIcon?: React.ReactElement;
-    customRightArrowIcon?: React.ReactElement;
-    customRightArrowsIcon?: React.ReactElement;
+    customLeftArrowIcon?: React.ReactElement | string;
+    customLeftArrowsIcon?: React.ReactElement | string;
+    customRightArrowIcon?: React.ReactElement | string;
+    customRightArrowsIcon?: React.ReactElement | string;
     maxWidth?: string;
     margin?: string;
     fontSize?: string;

@@ -1,8 +1,8 @@
 {
-  "name": "react-responsive-pagination-hook",
+  "name": "@nong/react-responsive-pagination",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "version": "0.0.6",
+  "version": "0.0.1",
   "description": "Responsive Pagination for react",
   "keywords": [
     "pagination",
