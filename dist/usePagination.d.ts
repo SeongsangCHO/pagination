@@ -4,7 +4,6 @@ interface IProps {
     resize: boolean;
     responsiveOption?: {
         breakPoint: number;
-        delay: number;
         breakPointUnderViewCount: number;
         breakPointOverViewCount: number;
     };

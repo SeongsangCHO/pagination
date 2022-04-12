@@ -8,7 +8,6 @@ var lodash_debounce_1 = __importDefault(require("lodash.debounce"));
 var usePagination = function (_a) {
     var _b = _a.delay, delay = _b === void 0 ? 0 : _b, _c = _a.data, data = _c === void 0 ? [] : _c, _d = _a.resize, resize = _d === void 0 ? false : _d, _e = _a.responsiveOption, responsiveOption = _e === void 0 ? {
         breakPoint: 768,
-        delay: 200,
         breakPointUnderViewCount: 6,
         breakPointOverViewCount: 10,
     } : _e;
