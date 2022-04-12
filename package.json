@@ -1,7 +1,23 @@
 {
   "name": "pagination",
   "version": "0.1.0",
-  "private": true,
+  "description": "Responsive Pagination for react",
+  "keywords": [
+    "pagination",
+    "react",
+    "responsive pagination"
+  ],
+  "homepage": "https://github.com/SeongsangCHO/pagination",
+  "bugs": {
+    "url": "https://github.com/SeongsangCHO/pagination/issues",
+    "email": "liasqui31@gmail.com"
+  },
+  "author": {
+    "name": "Seongsang Cho",
+    "email": "liasqui31@gmail.com",
+    "url": "https://watermelonlike.tistory.com"
+  },
+  "license": "MIT",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
@@ -24,7 +40,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "publish:npm": "rm -rf dist && mkdir dist && babel src/lib -d dist --copy-files"
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-react"
+    ]
   },
   "eslintConfig": {
     "extends": [
@@ -43,5 +65,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/preset-react": "^7.16.7"
   }
 }
