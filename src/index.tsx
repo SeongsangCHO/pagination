@@ -1,12 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import App from "./App";
+import Pagination from "./components/Pagination";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  <Pagination
+    {...{
+      totalPageCount: -9999,
+      currPageNum: -9999,
+      handlePageClick: () => {},
+      data: [],
+    }}
+  />,
   document.getElementById("root")
 );
 
