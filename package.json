@@ -1,5 +1,5 @@
 {
-  "name": "pagination",
+  "name": "react-responsive-pagination",
   "module": "dist/index.js",
   "main": "dist/index.js",
   "version": "0.0.1",
