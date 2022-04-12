@@ -2,7 +2,8 @@
 
 ---
 
-[eg](https://user-images.githubusercontent.com/55486644/162970783-eb152da4-2076-4cc3-9100-811d223b3133.mov)
+![example](https://user-images.githubusercontent.com/55486644/162971856-15326070-22f0-4a7b-91c6-890c36f30881.gif)
+
 
 
 
