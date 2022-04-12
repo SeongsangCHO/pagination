@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Pagination from "./components/Pagination";
+import Pagination from "./lib/Pagination";
 import reportWebVitals from "./reportWebVitals";
 
 ReactDOM.render(
