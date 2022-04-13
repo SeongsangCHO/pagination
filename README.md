@@ -117,7 +117,7 @@ function App() {
 | numberColor           | number color                   | String                       | "white"    |
 | customLeftArrowIcon   | Arrow Icon                     | React.ReactElement \| string | "<"        |
 | customLeftArrowsIcon  | Arrow Icon                     | React.ReactElement \| string | "<<"       |
-| customRightArrowIcon  | Arrow Icon                     | React.ReactElement \| string |            |
+| customRightArrowIcon  | Arrow Icon                     | React.ReactElement \| string | ">"        |
 | customRightArrowsIcon | Arrow Icon                     | React.ReactElement \| string | ">>"       |
 | maxWidth              | pagination container max width | String                       | -          |
 | margin                | pagination container margin    | String                       | -          |
